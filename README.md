@@ -28,7 +28,8 @@ A definir.
 - Poder tirar de los enemigos con una especie de látigo.
 
 ### Coleccionables
-A definir.
+- Crear como mini tumbas, donde debas resolver un puzzle para obtener una reliquia.
+- Objetos escondidos por el mapa.
 
 --------------------------
 ## Obstáculos
