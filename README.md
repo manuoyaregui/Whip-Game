@@ -79,7 +79,3 @@ A definir.
 - Hay una versión de artillero.
 
 -------------------------
-
-
-
-
