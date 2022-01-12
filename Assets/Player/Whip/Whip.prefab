@@ -135,9 +135,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a972967b3d802f4c8efcde7638f5d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullForceMultiplier: 80
+  pullForceMultiplier: 100
   maxWhipDistance: 12
-  whipForceMultiplier: 800
   minWhipDistance: 1.5
 --- !u!120 &6619745536745361993
 LineRenderer:

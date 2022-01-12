@@ -5,7 +5,7 @@ using System;
 
 public class WhipMovement : MonoBehaviour
 {
-    private float whipForceMultiplier = 800; // You get it from the WhipController atached to the player
+    private float whipForceMultiplier = 800; // You get it from the WhipController attached to the player, because the force is apllied from the player
     [SerializeField] private float pullForceMultiplier = 80; // 
     [SerializeField] private float maxWhipDistance = 12; // max distance that the whip can make
     [SerializeField] private float minWhipDistance = 1.5f; // Min distance betw 2 objects b4 the whip breaks
@@ -44,6 +44,9 @@ public class WhipMovement : MonoBehaviour
         whipRb = GetComponent<Rigidbody2D>();
         rope = GetComponentInChildren<LineRenderer>();
         whipCollider = GetComponent<CircleCollider2D>();
+
+        //Events
+        PlayerCollisionManager.OnPlayerCollidesWithEnemyEvent += BreakTheWhip;
     }
 
     private void Update()
@@ -67,7 +70,6 @@ public class WhipMovement : MonoBehaviour
         {
             PullAction();
         }
-
 
     }
 
@@ -127,9 +129,10 @@ public class WhipMovement : MonoBehaviour
     {
         if (isPulling && Input.GetButtonDown("Fire1"))
         {
-            Destroy(gameObject);
+            BreakTheWhip();
         }
     }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -144,7 +147,7 @@ public class WhipMovement : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            BreakTheWhip();
         }
     }
 
@@ -155,11 +158,14 @@ public class WhipMovement : MonoBehaviour
         whipRb.gravityScale = 0;
         whipCollider.enabled = false;
     }
-
-
+    private void BreakTheWhip()
+    {
+        Destroy(gameObject);
+    }
 
     private void OnDestroy()
     {
+        PlayerCollisionManager.OnPlayerCollidesWithEnemyEvent -= BreakTheWhip;
         OnWhipUncastedEvent?.Invoke();
     }
 }
