@@ -5,9 +5,9 @@ using System;
 
 public class WhipMovement : MonoBehaviour
 {
-    [SerializeField] private float pullForceMultiplier = 1; // 
-    [SerializeField] private float maxWhipDistance = 5; // max distance that the whip can make
-    [SerializeField] private float whipForceMultiplier = 10; //
+    private float whipForceMultiplier = 800; // You get it from the WhipController atached to the player
+    [SerializeField] private float pullForceMultiplier = 80; // 
+    [SerializeField] private float maxWhipDistance = 12; // max distance that the whip can make
     [SerializeField] private float minWhipDistance = 1.5f; // Min distance betw 2 objects b4 the whip breaks
     
 
@@ -40,6 +40,7 @@ public class WhipMovement : MonoBehaviour
         //Get all the components
         player = GameObject.FindGameObjectWithTag("Player");
         playerRB = player.GetComponent<Rigidbody2D>();
+        whipForceMultiplier = player.GetComponent<WhipController>().GetWhipForceMultiplier();
         whipRb = GetComponent<Rigidbody2D>();
         rope = GetComponentInChildren<LineRenderer>();
         whipCollider = GetComponent<CircleCollider2D>();
@@ -159,7 +160,6 @@ public class WhipMovement : MonoBehaviour
 
     private void OnDestroy()
     {
-
         OnWhipUncastedEvent?.Invoke();
     }
 }

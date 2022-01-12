@@ -7,6 +7,7 @@ public class WhipController : MonoBehaviour
 
     [SerializeField] private GameObject reference;
     [SerializeField] private GameObject whip;
+    [SerializeField] private float whipPullForceMultiplier;
 
     private bool isWhipButtonPressed;
 
@@ -50,6 +51,11 @@ public class WhipController : MonoBehaviour
     {
         isAWhipBeingCasted = true;
         GameObject whipInstance = Instantiate(whip, reference.transform.position, reference.transform.rotation);
+    }
+
+    public float GetWhipForceMultiplier()
+    {
+        return whipPullForceMultiplier;
     }
 
     public void OnWhipUncastedEventHandler()
