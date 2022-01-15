@@ -384,3 +384,4 @@ Received Import Request.
 Start importing Assets/Player/Scripts/WhipController.cs using Guid(b66d7e1f46b4c12488a102c676bb1d8d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c12f872e7ff40bb7e7c6ed228b57ebe') in 0.018984 seconds 
   Import took 0.023245 seconds .
 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file

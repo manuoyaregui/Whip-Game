@@ -79,3 +79,14 @@ A definir.
 - Hay una versión de artillero.
 
 -------------------------
+-------------------------
+
+# ChangeLog
+
+*15/01/2022*
+
+- El Látigo pasó a ser una Soga o Cuerda, se choca con cualquier objetivo. Si es un enemigo o un objeto "enredable" el jugador será lanzado al objetivo.
+
+- Si es un enemigo, será lanzado hacia el jugador, la potencia y velocidad de este lanzamiento variará según la masa del mismo.
+
+-
