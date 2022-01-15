@@ -7,7 +7,7 @@ public class WhipController : MonoBehaviour
 
     [SerializeField] private GameObject reference;
     [SerializeField] private GameObject whip;
-    [SerializeField] private float whipPullForceMultiplier;
+    [SerializeField] private float whipThrowForceMultiplier;
 
     private bool isWhipButtonPressed;
 
@@ -55,7 +55,7 @@ public class WhipController : MonoBehaviour
 
     public float GetWhipForceMultiplier()
     {
-        return whipPullForceMultiplier;
+        return whipThrowForceMultiplier;
     }
 
     public void OnWhipUncastedEventHandler()

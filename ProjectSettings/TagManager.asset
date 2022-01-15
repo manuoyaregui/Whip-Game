@@ -16,8 +16,8 @@ TagManager:
   - UI
   - Whip
   - Player
-  - PlayerIgnoresCollision
-  - 
+  - OnlyWhipTouches
+  - NotPlayer
   - 
   - 
   - 

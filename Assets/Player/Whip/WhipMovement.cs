@@ -9,13 +9,17 @@ public class WhipMovement : MonoBehaviour
     [SerializeField] private float pullForceMultiplier = 80; // 
     [SerializeField] private float maxWhipDistance = 12; // max distance that the whip can make
     [SerializeField] private float minWhipDistance = 1.5f; // Min distance betw 2 objects b4 the whip breaks
-    
+    [SerializeField] private float whipTimeAliveInAir = 3;
+
+    private float timeCounter;
 
     Rigidbody2D whipRb;
 
     private GameObject player;
     private Rigidbody2D playerRB;
     private Collider2D whipCollider;
+
+
 
     bool forceApplied; //flag to make sure that only apllies force to the whip one time;
     private bool isPulling; // State that defines if its grabbed to an object or if its still flying
@@ -25,6 +29,7 @@ public class WhipMovement : MonoBehaviour
     //Manage Collisions
     GameObject collisionObject;
     Rigidbody2D collisionRb;
+    ContactPoint2D contactPoint;
 
     //When The whip breaks
     public static event Action OnWhipUncastedEvent;
@@ -53,6 +58,7 @@ public class WhipMovement : MonoBehaviour
     {
         ModifyLineRendererVertices();
         CheckIfPlayerWannaBreakTheWhip();
+        
     }
 
     
@@ -86,6 +92,16 @@ public class WhipMovement : MonoBehaviour
 
     private void ThrowTheWhip()
     {
+        if(timeCounter < whipTimeAliveInAir)
+        {
+            timeCounter += Time.fixedDeltaTime;
+        }
+        else
+        {
+            BreakTheWhip();
+        }
+
+
         if (!forceApplied)
         {
             forceApplied = true;
@@ -95,8 +111,14 @@ public class WhipMovement : MonoBehaviour
 
     private void PullAction()
     {
-        transform.position = collisionObject.transform.position;
-
+        if (collisionObject.CompareTag("Enemy"))
+        {
+            transform.position = collisionObject.transform.position;
+        }
+        else if (collisionObject.CompareTag("WrappableObject"))
+        {
+            transform.position = contactPoint.point;
+        }
 
         if (distance >= minWhipDistance)
         {
@@ -113,16 +135,6 @@ public class WhipMovement : MonoBehaviour
     {
         rope.SetPosition(0, player.transform.position);
         rope.SetPosition(1, transform.position);
-        /*  //Intento de curvar el renderer
-            rope.SetPosition(0, player.transform.position);
-
-            for (int i = indexLineRenderer; i < rope.positionCount -1 ; i++ )
-            {
-                rope.SetPosition( i , transform.position);
-            }
-
-            indexLineRenderer++;
-        */
     }
 
     private void CheckIfPlayerWannaBreakTheWhip()
@@ -137,6 +149,7 @@ public class WhipMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         collisionObject = collision.gameObject;
+        contactPoint = collision.GetContact(0);
         if(collisionObject.CompareTag("Enemy") || collisionObject.CompareTag("WrappableObject"))
         {
             isPulling = true;
@@ -144,6 +157,8 @@ public class WhipMovement : MonoBehaviour
             CalmDownTheWhip();
 
             collisionRb = collisionObject.GetComponent<Rigidbody2D>();
+
+            
         }
         else
         {
